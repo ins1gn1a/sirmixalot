@@ -20,16 +20,15 @@ def file_len(fname):
 
     return i + 1
 
-
-mid_num_lines = file_len(args.mid_wl)
+if (args.mid_wl):
+    mid_num_lines = file_len(args.mid_wl)
 right_num_lines = file_len(args.right_wl)
 
-# Left list larger
+# Middle List
 if (args.mid_wl):
     with open(args.left_wl,'r') as left_wl:
         if (int(mid_num_lines) > int(right_num_lines)):
             for left in left_wl:
-                
                 # Mid list longer
                 with open(args.mid_wl,'r') as mid_wl:
                     for mid in mid_wl:
@@ -42,7 +41,6 @@ if (args.mid_wl):
 
         else:
             for left in left_wl:
-                
                 # Right list longer
                 with open(args.right_wl, 'r') as right_wl:
                     for right in right_wl:
@@ -53,14 +51,24 @@ if (args.mid_wl):
                                 else:
                                     print(left.rstrip() + mid.rstrip() + right.rstrip())
 
+# Left/Right Lists
 else:
-    left_wl = open(args.left_wl,'r')
-    for left in left_wl:
-        right_wl = open(args.right_wl, 'r')
-        for right in right_wl:
-            if args.space:
-                print(left.rstrip() + " " + right.rstrip())
-            else:
-                print (left.rstrip() + right.rstrip())
-        right_wl.close()
-
+    left_num_lines = file_len(args.left_wl)
+    if (left_num_lines > right_num_lines):
+        with open(args.left_wl,'r') as left_wl:
+            for left in left_wl:
+                with open(args.right_wl, 'r') as right_wl:
+                    for right in right_wl:
+                        if args.space:
+                            print(left.rstrip() + " " + right.rstrip())
+                        else:
+                            print (left.rstrip() + right.rstrip())
+    else:
+        with open(args.right_wl,'r') as right_wl:
+            for right in right_wl:
+                with open(args.left_wl, 'r') as left_wl:
+                    for left in left_wl:
+                        if args.space:
+                            print(left.rstrip() + " " + right.rstrip())
+                        else:
+                            print (left.rstrip() + right.rstrip())
